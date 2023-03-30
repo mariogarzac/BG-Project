@@ -10,3 +10,14 @@ Repositorio para la aplicación web de la barbería BG Project
     - A01720245
 - Jorge García Cantú
     - A00825118
+
+## Cómo correrlo
+### Lado del cliente
+```
+npm start
+```
+
+### Lado del servidor
+```
+node server
+```
