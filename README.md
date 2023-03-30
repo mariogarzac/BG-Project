@@ -13,6 +13,12 @@ Repositorio para la aplicación web de la barbería BG Project
 
 ## Cómo correrlo
 Para correr la app web primero corre el servidor y después el cliente.
+
+### Antes de correr la app
+```
+npm install
+```
+
 ### Lado del cliente
 ```
 npm start
