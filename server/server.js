@@ -16,5 +16,5 @@ app.get("/api", (req,res) => {
 // })
 
 
-app.listen(5000,() => {console.log("Server started in port 5001")})
+app.listen(5000,() => {console.log("Server started in port 5000")})
 
