@@ -12,6 +12,7 @@ Repositorio para la aplicación web de la barbería BG Project
     - A00825118
 
 ## Cómo correrlo
+Para correr la app web primero corre el servidor y después el cliente.
 ### Lado del cliente
 ```
 npm start
@@ -19,5 +20,5 @@ npm start
 
 ### Lado del servidor
 ```
-node server
+nodemon server
 ```
