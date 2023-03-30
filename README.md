@@ -22,3 +22,9 @@ npm start
 ```
 nodemon server
 ```
+
+En caso de que no funcione, hacer:
+```
+nodemon server -g
+```
+  
