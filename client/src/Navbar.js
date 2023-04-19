@@ -10,10 +10,20 @@ class Navbar extends React.Component {
 					<Link to="/">Logo</Link>
 				</div>
 				<div className="navbar__links">
-					<Link to="/">Home</Link>
-					<Link to="/calendar">Calendar</Link>
-					<Link to="/contact">Contact</Link>
-					<Link to="/location">Location</Link>
+					<ul className="navbar__list">
+						<li>
+							<Link to="/">Home</Link>
+						</li>
+						<li>
+							<Link to="/calendar">Calendar</Link>
+						</li>
+						<li>
+							<Link to="/contact">Contact</Link>
+						</li>
+						<li>
+							<Link to="/location">Location</Link>
+						</li>
+					</ul>
 				</div>
 			</div>
 		);
