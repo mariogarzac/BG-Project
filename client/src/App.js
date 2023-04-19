@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./Navbar";
+import Home from "./Home";
+import Calendar from "./Calendar";
+import Contact from "./Contact";
+import Location from "./Location";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+// import Axios from "axios";
+
+class App extends React.Component {
+	render() {
+		return (
+			<Router>
+				<div className="app">
+					<div className="app__header">
+						<Navbar />
+					</div>
+					<div className="app__body">
+						<Routes>
+							<Route path="/" element={<Home />} />
+							<Route path="/calendar" element={<Calendar />} />
+							<Route path="/contact" element={<Contact />} />
+							<Route path="/location" element={<Location />} />
+						</Routes>
+					</div>
+
+					{this.footer}
+				</div>
+			</Router>
+		);
+	}
 }
 
 export default App;
