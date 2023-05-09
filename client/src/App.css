@@ -46,7 +46,7 @@
 
 body {
 	margin: 0;
-	background-color: #fefdfa;
+	background-color: #f9faf7;
 }
 
 .navbar {
@@ -72,6 +72,11 @@ body {
 	align-items: center;
 }
 
+.navbar__logo img {
+	height: 80px;
+	margin-right: 10px;
+}
+
 .navbar .navbar__logo a {
 	font-size: 1.5rem;
 	float: left;
@@ -92,26 +97,57 @@ body {
 	padding: 0 20px;
 }
 
+.footer {
+	height: 100px;
+	background-color: #282c34;
+	color: white;
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.footer__link {
+	color: white;
+	text-decoration: none;
+	height: 80px;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.footer__link svg {
+	height: 45px;
+	width: 100%;
+	fill: white;
+}
+
+.footer__link :hover {
+	transition: 200ms;
+	fill: #61dafb;
+}
+
 .content {
 	padding: 20px 25px;
 	margin: 0 350px;
 	background-color: #fefdfa;
 	min-height: calc(100vh - 130px);
-	/* border: 1px solid #ddd;
+	border: 1px solid #ddd;
 	border-top-width: 0;
-	border-bottom-width: 0; */
+	border-bottom-width: 0;
 }
 
 .card {
 	background-color: #fcfbf9;
 	border: 1px solid #ddd;
 	border-radius: 5px;
-	padding: 0 20px;
+	padding: 20px;
 	margin: 15px 0;
 }
 
 .card__title {
-	margin: 16px 0;
+	margin: 0;
 	font-size: 1.5rem;
 	font-weight: bold;
 }
@@ -128,8 +164,8 @@ body {
 }
 
 .card__button__container {
-	display: flex;
-	justify-content: flex-end;
+	/* display: flex;
+	justify-content: flex-end; */
 }
 
 .card__button {
@@ -143,7 +179,9 @@ body {
 	font-weight: bold;
 	cursor: pointer;
 	width: 105px;
-	margin: 15px -5px;
+	/* margin: 15px; */
+	margin-top: 10px;
+	/* margin-bottom: 15px; */
 }
 
 .card__button:hover {

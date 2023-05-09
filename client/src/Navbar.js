@@ -1,13 +1,16 @@
 import React from "react";
 import "./App.css";
 import { Link } from "react-router-dom";
+import logo from "./assets/BGPROJECT_LOGO.jpg";
 
 class Navbar extends React.Component {
 	render() {
 		return (
 			<div className="navbar">
 				<div className="navbar__logo">
-					<Link to="/">Logo</Link>
+					<Link to="/">
+						<img src={logo} alt="BG Project" />
+					</Link>
 				</div>
 				<div className="navbar__links">
 					<ul className="navbar__list">

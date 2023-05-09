@@ -7,6 +7,7 @@ import Calendar from "./Calendar";
 import Contact from "./Contact";
 import Location from "./Location";
 import Services from "./Services";
+import Footer from "./Footer";
 
 // import Axios from "axios";
 
@@ -28,7 +29,9 @@ class App extends React.Component {
 						</Routes>
 					</div>
 
-					{this.footer}
+					<div className="app__footer">
+						<Footer />
+					</div>
 				</div>
 			</Router>
 		);
