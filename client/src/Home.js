@@ -4,8 +4,10 @@ import "./App.css";
 class Home extends React.Component {
 	render() {
 		return (
-			<div className="home">
-				<div className="home__title">Home</div>
+			<div className="content">
+				<div className="home">
+					<div className="home__title">Home</div>
+				</div>
 			</div>
 		);
 	}

@@ -6,6 +6,7 @@ import Home from "./Home";
 import Calendar from "./Calendar";
 import Contact from "./Contact";
 import Location from "./Location";
+import Services from "./Services";
 
 // import Axios from "axios";
 
@@ -21,6 +22,7 @@ class App extends React.Component {
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/calendar" element={<Calendar />} />
+							<Route path="/services" element={<Services />} />
 							<Route path="/contact" element={<Contact />} />
 							<Route path="/location" element={<Location />} />
 						</Routes>
