@@ -152,20 +152,12 @@ body {
 	font-weight: bold;
 }
 
-.card__description {
-}
-
 .card__list {
 	list-style: none;
 }
 
 .card__list li {
 	padding: 5px 0;
-}
-
-.card__button__container {
-	/* display: flex;
-	justify-content: flex-end; */
 }
 
 .card__button {
