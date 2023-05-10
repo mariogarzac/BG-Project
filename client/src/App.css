@@ -188,3 +188,41 @@ body {
 	transition: 150ms;
 	background-color: #61dafb;
 }
+
+.large__img__container {
+	height: 400px;
+	margin: -20px -25px 25px -25px;
+}
+
+.large__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+ul.link__list {
+	list-style: none;
+	padding: 25px;
+	margin: 0;
+	display: flex;
+	justify-content: center;
+}
+
+ul.link__list li {
+	margin: 25px auto;
+}
+
+ul.link__list li a {
+	padding: 10px 15px;
+	border-radius: 5px;
+	text-decoration: none;
+	color: #fff;
+	font-size: 1.5rem;
+	font-weight: bold;
+	background-color: #117591;
+}
+
+ul.link__list li a:hover {
+	transition: 150ms;
+	background-color: #61dafb;
+}
