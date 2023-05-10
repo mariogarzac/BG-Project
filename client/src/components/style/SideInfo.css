@@ -1,0 +1,30 @@
+.sideinfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.left-section {
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+}
+
+.left-section img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.right-section {
+  flex: 1;
+}
+
+.right-section p {
+  text-align: right;
+}
+

@@ -1,0 +1,7 @@
+.app {
+  position: relative;
+}
+
+.content-wrapper {
+  margin-top: 50px; /* Adjust the margin to your desired spacing */
+}

@@ -1,0 +1,20 @@
+.location {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 50vh; /* 100% of viewport height */
+  padding: 20px;
+  background-color: #f5f5f5;
+  z-index: 100; /* Ensure the location section is above other elements */
+}
+
+.location h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.location p {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
