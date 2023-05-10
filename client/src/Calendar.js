@@ -4,8 +4,9 @@ import "./App.css";
 class Calendar extends React.Component {
 	render() {
 		return (
-			<div className="calendar">
-				<div className="calendar__title">Calendar</div>
+			<div className="content">
+				<div className="calendar"></div>
+				<h1>Citas</h1>
 			</div>
 		);
 	}

@@ -4,8 +4,10 @@ import "./App.css";
 class Location extends React.Component {
 	render() {
 		return (
-			<div className="location">
-				<div className="location__title">Location</div>
+			<div className="content">
+				<div className="location">
+					<h1>Location</h1>
+				</div>
 			</div>
 		);
 	}

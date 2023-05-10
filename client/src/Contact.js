@@ -4,8 +4,10 @@ import "./App.css";
 class Contact extends React.Component {
 	render() {
 		return (
-			<div className="contact">
-				<div className="contact__title">Contact</div>
+			<div className="content">
+				<div className="contact">
+					<h1>Contacto</h1>
+				</div>
 			</div>
 		);
 	}
