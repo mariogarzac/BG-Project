@@ -218,3 +218,19 @@ ul.link__list li a:hover {
 	transition: 150ms;
 	background-color: #61dafb;
 }
+
+.calendar-container {
+    display : flex;
+    justify-content : center;
+}
+
+.calendar{
+    justify-content: center;
+	padding: 20px 25px;
+	background-color: #fefdfa;
+	border: 1px solid #ddd;
+	border-top-width: 0;
+	border-bottom-width: 0;
+}
+
+
