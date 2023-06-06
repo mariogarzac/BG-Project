@@ -233,4 +233,53 @@ ul.link__list li a:hover {
 	border-bottom-width: 0;
 }
 
+.cita__form label {
+	display: block;
+	padding-top: 15px;
+}
 
+.cita__form select {
+	width: 100%;
+	height: 35px;
+	margin-top: 5px;
+	border-radius: 0;
+	border: 0;
+	padding: 10px
+}
+
+.cita__form option{
+	border-radius: 0;	
+	border: 0;
+}
+
+.cita__form input {
+	display: inline;
+	width: 100%;
+	height: 35px;
+	margin-top: 5px;
+	border-radius: 0;
+	border: 1px solid #ddd;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.submit__button {
+	background-color: #117591;
+	/* change */
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	color: white;
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	width: 105px;
+	/* margin: 15px; */
+	margin-top: 15px;
+	/* margin-bottom: 15px; */
+}
+
+.submit__button:hover {
+	transition: 150ms;
+	background-color: #61dafb;
+}
