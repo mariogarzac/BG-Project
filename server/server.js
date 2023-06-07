@@ -27,7 +27,7 @@ app.get('/', (req, res) => {
 app.use('/api/barbers', barberRoutes)
 app.use('/api/appointments', appointmentRoutes)
 
-app.listen(5002,() => {console.log("Server started in port 5000")})
+app.listen(5002,() => {console.log("Server started in port 5002")})
 
 app.get("/insert", (req, res)=> {
     var user = new userModel({

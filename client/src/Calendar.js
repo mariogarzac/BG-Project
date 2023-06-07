@@ -8,24 +8,20 @@ import axios from 'axios';
 function MyCalendar() {
 
     useEffect(() => {
-        try {
-            axios.get('https://run.mocky.io/v3/8d91d0b0-1453-4baf-96d8-095aeb3e325c').then((response) => {
-                console.log(response.data);
-            });
-        } catch (e) {
-            console.log(e.message);
-            console.log("Error fetching request");
+        const fetch_barbers = async () => {
+            const res = await axios.get('http://localhost:5002/api/barbers');
+            console.log(res.data);
         }
+
+        fetch_barbers();
     }, []);
 
   function get_available_hours(all_hours, booked_hours) {
     // Return a list of available hours with values & hours
     var available_hours = [];
     for (var i = 0; i < all_hours.length; i++) {
-        console.log(all_hours[i]);
         if (booked_hours.indexOf(all_hours[i].value) === -1) {
             available_hours.push(all_hours[i]);
-            console.log("Available hour: " + all_hours[i].value);
         }
     }
     return available_hours;
@@ -65,7 +61,6 @@ function MyCalendar() {
 
   const handleDateChange = (date) => {
     setDate(date);
-    console.log(date);
     var day = date.getDay();
     // Get day of the week
     switch (day) {
@@ -105,7 +100,6 @@ function MyCalendar() {
   }
 
   const handleSubmit = (event) => {
-    console.log(date);
     event.preventDefault();
   }
 
