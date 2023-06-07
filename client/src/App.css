@@ -97,6 +97,18 @@ body {
 	padding: 0 20px;
 }
 
+.admin__navbar__link {
+	color: white;
+	background-color: #117591;
+	border-radius: 5px;
+}
+
+.admin__navbar__link:hover {
+	color: black;
+	transition: 150ms;
+	background-color: #61dafb;
+}
+
 .footer {
 	height: 100px;
 	background-color: #282c34;

@@ -18,6 +18,19 @@ function MyCalendar() {
         }
     }, []);
 
+  function get_available_hours(all_hours, booked_hours) {
+    // Return a list of available hours with values & hours
+    var available_hours = [];
+    for (var i = 0; i < all_hours.length; i++) {
+        console.log(all_hours[i]);
+        if (booked_hours.indexOf(all_hours[i].value) === -1) {
+            available_hours.push(all_hours[i]);
+            console.log("Available hour: " + all_hours[i].value);
+        }
+    }
+    return available_hours;
+  }
+
   const [date, setDate] = useState(new Date());
 
   const [barber, setBarber] = useState('');
@@ -26,6 +39,8 @@ function MyCalendar() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
+  const [week_day, setWeekDay] = useState('monday');
+
   var barber_list = [
     {id: 0, name: 'Barbero 1'},
     {id: 1, name: 'Barbero 2'},
@@ -33,19 +48,52 @@ function MyCalendar() {
     {id: 3, name: 'Barbero 4'},
   ];
 
-  var hora_list = [
-    {value: 10.0, name: '10:00'},
-    {value: 10.5, name: '10:30'},
-    {value: 11.0, name: '11:00'},
-    {value: 11.5, name: '11:30'},
-    {value: 12.0, name: '12:00'},
-    {value: 12.5, name: '12:30'},
-    {value: 13.0, name: '13:00'},
-    {value: 13.5, name: '13:30'},
+  var booked_list = [10.0, 11.0, 12.0, 13.0]
+
+  var all_hours = [
+    {value: 10.0, hour: '10:00'},
+    {value: 10.5, hour: '10:30'},
+    {value: 11.0, hour: '11:00'},
+    {value: 11.5, hour: '11:30'},
+    {value: 12.0, hour: '12:00'},
+    {value: 12.5, hour: '12:30'},
+    {value: 13.0, hour: '13:00'},
+    {value: 13.5, hour: '13:30'},
   ];
+
+  var hora_list = get_available_hours(all_hours, booked_list);
 
   const handleDateChange = (date) => {
     setDate(date);
+    console.log(date);
+    var day = date.getDay();
+    // Get day of the week
+    switch (day) {
+        case 0:
+            setWeekDay('sunday');
+            break;
+        case 1:
+            setWeekDay('monday');
+            break;
+        case 2:
+            setWeekDay('tuesday');
+            break;
+        case 3:
+            setWeekDay('wednesday');
+            break;
+        case 4:
+            setWeekDay('thursday');
+            break;
+        case 5:
+            setWeekDay('friday');
+            break;
+        case 6:
+            setWeekDay('saturday');
+            break;
+        default:
+            setWeekDay('monday');
+            break;
+        }
   };
 
   const handleBarberChange = (event) => {
@@ -56,6 +104,11 @@ function MyCalendar() {
     setHora(event.target.value);
   }
 
+  const handleSubmit = (event) => {
+    console.log(date);
+    event.preventDefault();
+  }
+
  const nextWeek = new Date();
  nextWeek.setDate(nextWeek.getDate() + 6);
 
@@ -63,7 +116,7 @@ function MyCalendar() {
     <div className="content">
       <h1>Agendar Cita</h1>
 
-      <form className="cita__form">
+      <form className="cita__form" onSubmit={handleSubmit}>
         <label>Selecciona el servicio</label>
         <select>
           <option value="0" defaultValue={this}>Corte de cabello</option>
@@ -88,7 +141,7 @@ function MyCalendar() {
         <label>Selecciona la hora</label>
         <select value={hora} onChange={handleHoraChange}>
             {hora_list.map((hora) => (
-                <option value={hora.value}>{hora.name}</option>
+                <option value={hora.value}>{hora.hour}</option>
             ))}
         </select>
 

@@ -14,21 +14,24 @@ class Navbar extends React.Component {
 				</div>
 				<div className="navbar__links">
 					<ul className="navbar__list">
-						<li>
-							<Link to="/">Home</Link>
-						</li>
-						<li>
-							<Link to="/calendar">Calendar</Link>
-						</li>
-						<li>
-							<Link to="/services">Services</Link>
-						</li>
-						<li>
-							<Link to="/contact">Contact</Link>
-						</li>
-						<li>
-							<Link to="/location">Location</Link>
-						</li>
+						<Link to="/">
+							<li>Home</li>
+						</Link>
+						<Link to="/calendar">
+							<li>Calendar</li>
+						</Link>
+						<Link to="/services">
+							<li>Services</li>
+						</Link>
+						<Link to="/contact">
+							<li>Contact</li>
+						</Link>
+						<Link to="/location">
+							<li>Location</li>
+						</Link>
+						<Link className="admin__navbar__link" to="/admin">
+							<li>Admin</li>
+						</Link>
 					</ul>
 				</div>
 			</div>
