@@ -9,8 +9,10 @@ function MyCalendar() {
 
     useEffect(() => {
         const fetch_barbers = async () => {
+            console.log("Fetching barbers");
             const res = await axios.get('http://localhost:5002/api/barbers');
             console.log(res.data);
+            console.log("Barbers fetched");
         }
 
         fetch_barbers();
