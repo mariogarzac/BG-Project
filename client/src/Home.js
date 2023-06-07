@@ -16,7 +16,7 @@ class Home extends React.Component {
 					<h1>Bienvenido a BG Project</h1>
 					<p>
 						<p>
-							<strong>¡Hola!</strong> Nosotros somos BG Project,
+							<strong>¡Hola!</strong> Somos BG Project,
 							una barberia especializada.
 						</p>
 						Aquí podrás ver los servicios que ofrecemos y realizar

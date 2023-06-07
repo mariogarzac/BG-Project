@@ -4,7 +4,7 @@ const scheduleModel = require('./schedule');
 const userSchema = mongoose.Schema({
     name: String,
     last_name : String,
-    sched : scheduleModel
+    schedule : scheduleModel
 });
 
 module.exports = mongoose.model('Barber', userSchema);
