@@ -6,6 +6,14 @@ function AdminNewBarber() {
 	const [fname, setFname] = useState('');
 	const [lname, setLname] = useState('');
 
+	function generate_list_hours(start, finish) {
+		var hours = [];
+		for (var i = start; i <= finish; i += 0.5) {
+			hours.push(i);
+		}
+		return hours;
+	}
+
 	function handleFnameChange(event) {
 		setFname(event.target.value);
 	}
@@ -18,6 +26,8 @@ function AdminNewBarber() {
 		event.preventDefault();
 		console.log(fname);
 		console.log(lname);
+
+		const hours = generate_list_hours(9.0, 18.0);
 	}
 
 
