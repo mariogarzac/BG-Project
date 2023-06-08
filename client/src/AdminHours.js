@@ -1,20 +1,59 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 import "./App.css";
 
 
 function AdminHours () {
 
+	useEffect(() => {
+		const fetch_barbers = async () => {
+			const res = await fetch('http://localhost:5002/api/barbers');
+			const res_json = await res.json();
+			// console.log(res_json);
+			setAllBarbers(res_json);
+			setBarberList(parse_barbers(res_json));     
+			setBarber(res_json[0]._id);
+		}
+
+		fetch_barbers();
+	}, []);
+
 const available_hours = get_available_hours(9.0, 18.0);
 var end_available_hours = get_available_hours(9.5, 18.0);
-		
 
+    function parse_barbers(barbers) {
+        var result_barbers = [];
+        var id = 0;
+        var name = '';
+        for (var i = 0; i < barbers.length; i++) {
+            id = barbers[i]._id;
+            name = barbers[i].name + ' ' + barbers[i].last_name;
+            result_barbers.push({id: id, name: name});
+        }
+        // console.log(result_barbers)
+        return result_barbers;
+    }
+
+	function parse_hours(barbers, b_id) {
+		var result_hours = barbers
+		for (var i = 0; i < barbers.length; i++) {
+			if (barbers[i].id === b_id) {
+				result_hours = barbers[i].schedule;
+			}
+		}
+		return result_hours;
+	}
+		
+const [barber_list, setBarberList] = useState([]);
+const [hours_list, setHoursList] = useState([]);
+const [all_barbers, setAllBarbers] = useState([]);
 	
 const [barber, setBarber] = useState('');
 const [day, setDay] = useState('');
-const [start, setStart] = useState('');
-const [end, setEnd] = useState('');
+const [start, setStart] = useState(9.0);
+const [end, setEnd] = useState(9.5);
 
 const start_hours = 9.0;
 const end_hours = 18.0;
@@ -33,8 +72,18 @@ function get_available_hours(start, finish) {
 	return hours;
 }
 
+function get_hours(start, finish) {
+	var hours = [];
+	for (var i = start; i <= finish; i += 0.5) {
+		hours.push(i);
+	}
+	return hours;
+}
+
 function handleBarberChange(event) {
 	setBarber(event.target.value);
+	setHoursList(parse_hours(all_barbers, event.target.value));
+	console.log(hours_list)
 }
 
 function handleDayChange(event) {
@@ -53,9 +102,17 @@ function handleEndChange(event) {
 function handleSubmit(event) {
 	event.preventDefault();
 	let final_hours = [];
-	if (start <= end) {
-		final_hours = get_available_hours(start, end);
+	if (start < end) {
+		final_hours = get_hours(start, end);
+		// console.log(final_hours);
+		console.log(hours_list);
+		hours_list[day] = final_hours;
 		
+		const post_schedule = async () => {
+			const res = await axios.patch('http://localhost:5002/api/barbers/' + barber, hours_list);
+		}
+
+		post_schedule();
 	} else {
 		console.log("Error: La hora de inicio debe ser menor a la hora de fin")
 	}
@@ -69,15 +126,17 @@ function handleSubmit(event) {
 					<form className="cita__form" onSubmit={handleSubmit}>
 						<label htmlFor="barber">Barbero</label>
 						<select name="barber" onChange={handleBarberChange}>
-							<option value="0" defaultValue={this}>Barbero 1</option>
+							{barber_list.map((barber) => (
+								<option value={barber.id}>{barber.name}</option>
+							))}
 						</select>
 						<label htmlFor="day">Día</label>
 						<select name="day" onChange={handleDayChange}>
-							<option value="0" defaultValue={this}>Lunes</option>
-							<option value="1">Martes</option>
-							<option value="2">Miércoles</option>
-							<option value="3">Jueves</option>
-							<option value="4">Viernes</option>
+							<option value="Lun" defaultValue={this}>Lunes</option>
+							<option value="Mar">Martes</option>
+							<option value="Mier">Miércoles</option>
+							<option value="Juev">Jueves</option>
+							<option value="Vier">Viernes</option>
 						</select>
 						<label htmlFor="start">Hora de inicio</label>
 						<select name="start" onChange={handleStartChange}>
