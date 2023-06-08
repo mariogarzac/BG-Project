@@ -5,11 +5,15 @@ const {
     getAppointments,
     createAppointment,
     deleteAppointment,
-    updateAppointment
+    updateAppointment,
+    getAppointmentByDate
 } = require('../controllers/appointmentController')
 
 
 const router = express.Router()
+
+// GET Schedule by date
+router.get('/appointmentDate', getAppointmentByDate)
 
 // GET ALL appointments
 router.get('/', getAppointments)
@@ -19,9 +23,6 @@ router.get('/:id', getAppointment)
 
 // GET Schedule
 // router.get('/schedule/:id', getSchedule)
-
-// // GET Schedule by day
-// router.get('/scheduleDay/:id', getScheduleDay)
 
 // CREATE a NEW appointment
 router.post('/', createAppointment)

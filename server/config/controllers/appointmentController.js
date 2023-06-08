@@ -18,7 +18,24 @@ const getAppointment = async (req, res) => {
     
 
     if (!appointment){
-        return res.status(404).json({error : 'No existe ese barber'})
+        return res.status(404).json({error : 'No existe ese appointment'})
+    }
+
+    res.status(200).json(appointment)
+}
+
+
+const getAppointmentByDate = async (req, res) => {
+    const { date, barber } = req.body
+
+
+    const appointment = await Appointment.find({date : date, barber_id : barber})
+
+    console.log("entro aqui")
+    
+
+    if (!appointment){
+        return res.status(404).json({error : 'No existe ese appointment olaa'})
     }
 
     res.status(200).json(appointment)
@@ -82,6 +99,7 @@ module.exports = {
     getAppointments,
     createAppointment,
     deleteAppointment,
-    updateAppointment
+    updateAppointment,
+    getAppointmentByDate
 }
 
