@@ -25,20 +25,23 @@ function AdminNewBarber() {
 
 	function handleSubmit(event) {
 		event.preventDefault();
+		if (fname === "" || lname === "") {
+			console.log("No se puede agregar un barbero sin nombre o apellido");
+		} else {
+			const sched = create_default_sched(9.0, 18.0);
 
-		const sched = create_default_sched(9.0, 18.0);
+			const body = { name: fname, last_name: lname, sched: sched };
 
-		const body = { name: fname, last_name: lname, sched: sched };
-
-		const res = axios
-			.post("http://localhost:5002/api/barbers", body)
-			.then((res) => {
-				console.log("Barbero agregado exitosamente!");
-				window.location.replace("/admin");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+			const res = axios
+				.post("http://localhost:5002/api/barbers", body)
+				.then((res) => {
+					console.log("Barbero agregado exitosamente!");
+					window.location.replace("/admin");
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	}
 
 	return (
