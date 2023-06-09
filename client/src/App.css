@@ -232,12 +232,12 @@ ul.link__list li a:hover {
 }
 
 .calendar-container {
-    display : flex;
-    justify-content : center;
+	display: flex;
+	justify-content: center;
 }
 
-.calendar{
-    justify-content: center;
+.calendar {
+	justify-content: center;
 	padding: 20px 25px;
 	background-color: #fefdfa;
 	border: 1px solid #ddd;
@@ -256,11 +256,11 @@ ul.link__list li a:hover {
 	margin-top: 5px;
 	border-radius: 0;
 	border: 0;
-	padding: 10px
+	padding: 10px;
 }
 
-.cita__form option{
-	border-radius: 0;	
+.cita__form option {
+	border-radius: 0;
 	border: 0;
 }
 
@@ -294,4 +294,24 @@ ul.link__list li a:hover {
 .submit__button:hover {
 	transition: 150ms;
 	background-color: #61dafb;
+}
+
+.barber__list {
+	list-style: none;
+}
+
+.barber__list li {
+	font-weight: bold;
+	font-size: larger;
+	margin-bottom: 10px;
+}
+
+.barber__list li a {
+	color: #117591;
+	text-decoration: none;
+}
+
+.barber__list li a:hover {
+	color: #61dafb;
+	transition: 100ms;
 }

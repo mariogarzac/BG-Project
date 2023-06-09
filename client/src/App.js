@@ -11,6 +11,7 @@ import Footer from "./Footer";
 import AdminHours from "./AdminHours";
 import AdminNewBarber from "./AdminNewBarber";
 import AdminPage from "./AdminPage";
+import BarberPage from "./BarberPage";
 
 // import Axios from "axios";
 
@@ -30,8 +31,15 @@ class App extends React.Component {
 							<Route path="/contact" element={<Contact />} />
 							<Route path="/location" element={<Location />} />
 							<Route path="/hours" element={<AdminHours />} />
-							<Route path="/new-barber" element={<AdminNewBarber />} />
+							<Route
+								path="/new-barber"
+								element={<AdminNewBarber />}
+							/>
 							<Route path="/admin" element={<AdminPage />} />
+							<Route
+								path="/barber/:barber_id"
+								element={<BarberPage />}
+							/>
 						</Routes>
 					</div>
 
