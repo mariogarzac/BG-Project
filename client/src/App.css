@@ -315,3 +315,24 @@ ul.link__list li a:hover {
 	color: #61dafb;
 	transition: 100ms;
 }
+
+.delete__button {
+	background-color: #911126;
+	/* change */
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	color: white;
+	font-size: 1rem;
+	font-weight: bold;
+	cursor: pointer;
+	/* width: 105px; */
+	/* margin: 15px; */
+	margin-top: 15px;
+	/* margin-bottom: 15px; */
+}
+
+.delete__button:hover {
+	transition: 150ms;
+	background-color: #f00;
+}

@@ -73,11 +73,22 @@ const BarberPage = () => {
 							time={app.hour}
 							name={app.customer_name}
 							email={app.customer_email}
+							id={app._id}
 						/>
 					))}
 				</div>
 			);
 		}
+	}
+
+	function handle_delete(event) {
+		event.preventDefault();
+		const res = axios
+			.delete("http://localhost:5002/api/barbers/" + barber_id)
+			.then((res) => {
+				console.log(res);
+				window.location.replace("/admin");
+			});
 	}
 
 	return (
@@ -89,6 +100,7 @@ const BarberPage = () => {
 					<strong>Nombre: </strong>
 					{barber_name}
 				</h2>
+				<h3>ID: {barber_id}</h3>
 				<h3>Schedule</h3>
 
 				<ul>
@@ -98,7 +110,7 @@ const BarberPage = () => {
 						{parse_hours(schedule.Lun.at(-1))}
 					</li>
 					<li>
-						<strong>Martes: </strong> de
+						<strong>Martes: </strong> de{" "}
 						{parse_hours(schedule.Mar[0])} a{" "}
 						{parse_hours(schedule.Mar.at(-1))}
 					</li>
@@ -120,6 +132,9 @@ const BarberPage = () => {
 				</ul>
 				<h3>Appointments for today:</h3>
 				{render_appointments(appointments)}
+				<button className="delete__button" onClick={handle_delete}>
+					Delete Barber
+				</button>
 			</div>
 		</div>
 	);

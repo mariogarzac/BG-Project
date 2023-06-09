@@ -1,7 +1,8 @@
 import React from "react";
 import "./App.css";
+import axios from "axios";
 
-const Appointments = ({ date, time, name, email }) => {
+const Appointments = ({ date, time, name, email, id }) => {
 	function parse_date(date) {
 		const myDate = new Date(date);
 		var result_date = "";
@@ -21,6 +22,16 @@ const Appointments = ({ date, time, name, email }) => {
 		return result_hour;
 	}
 
+	function handle_delete(event) {
+		event.preventDefault();
+		const res = axios
+			.delete("http://localhost:5002/api/appointments/" + id)
+			.then((res) => {
+				console.log(res);
+				window.location.reload();
+			});
+	}
+
 	return (
 		<div className="card">
 			<p className="card__title">Corte de cabello</p>
@@ -35,6 +46,9 @@ const Appointments = ({ date, time, name, email }) => {
 				<strong>Email: </strong>
 				{email}
 			</p>
+			<button className="delete__button" onClick={handle_delete}>
+				Cancel Appointment
+			</button>
 		</div>
 	);
 };
