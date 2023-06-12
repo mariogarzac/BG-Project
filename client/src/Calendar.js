@@ -9,7 +9,7 @@ import { json } from "react-router-dom";
 function MyCalendar() {
 	useEffect(() => {
 		const fetch_barbers = async () => {
-			const res = await fetch("http://localhost:5002/api/barbers");
+			const res = await fetch("/api/barbers");
 			const res_json = await res.json();
 			// console.log(res_json);
 			setBarberList(parse_barbers(res_json));
@@ -17,7 +17,7 @@ function MyCalendar() {
 		};
 
 		const fetch_booked_hours = async () => {
-			const res = await fetch("http://localhost:5002/api/appointments");
+			const res = await fetch("/api/appointments");
 			const res_json = await res.json();
 			console.log(res_json);
 			setAllAppointments(res_json);
@@ -126,7 +126,7 @@ function MyCalendar() {
 		console.log(date);
 		const res = axios
 			.post(
-				"http://localhost:5002/api/appointments/appointmentDate",
+				"/api/appointments/appointmentDate",
 				body
 			)
 			.then((res) => {
@@ -208,7 +208,7 @@ function MyCalendar() {
 
 		const post_appointment = async () => {
 			const res = await axios
-				.post("http://localhost:5002/api/appointments", json_data)
+				.post("/api/appointments", json_data)
 				.then((res) => {
 					console.log(res);
 					console.log("Cita agendada con éxito");

@@ -33,7 +33,7 @@ function AdminNewBarber() {
 			const body = { name: fname, last_name: lname, sched: sched };
 
 			const res = axios
-				.post("http://localhost:5002/api/barbers", body)
+				.post("/api/barbers", body)
 				.then((res) => {
 					console.log("Barbero agregado exitosamente!");
 					window.location.replace("/admin");

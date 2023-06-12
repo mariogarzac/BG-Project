@@ -1,5 +1,5 @@
 const express = require('express');
-const cors = require('cors')
+// const cors = require('cors')
 //const bodyParser = require('body-parser')
 const connectDB = require('./config/db');
 const userModel = require('./config/models/barberModel');
@@ -8,7 +8,6 @@ const appointmentRoutes = require('./config/routes/appointmentRoutes');
 // const { getBarber } = require('./config/controllers/barberController')
 
 const app = express()
-app.use(cors());
 
 connectDB();
 

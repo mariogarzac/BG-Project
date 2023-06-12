@@ -25,7 +25,7 @@ const Appointments = ({ date, time, name, email, id }) => {
 	function handle_delete(event) {
 		event.preventDefault();
 		const res = axios
-			.delete("http://localhost:5002/api/appointments/" + id)
+			.delete("/api/appointments/" + id)
 			.then((res) => {
 				console.log(res);
 				window.location.reload();
