@@ -24,7 +24,7 @@ function AdminHours() {
 
 	useEffect(() => {
 		const fetch_barbers = async () => {
-			const res = await fetch("http://localhost:5002/api/barbers");
+			const res = await fetch("/api/barbers");
 			const res_json = await res.json();
 			// console.log(res_json);
 			setAllBarbers(res_json);
@@ -130,7 +130,7 @@ function AdminHours() {
 
 		const post_schedule = async () => {
 			const res = await axios
-				.patch("http://localhost:5002/api/barbers/" + barber, body)
+				.patch("/api/barbers/" + barber, body)
 				.then((res) => {
 					console.log(res);
 				})

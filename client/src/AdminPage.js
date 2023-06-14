@@ -10,7 +10,7 @@ function AdminPage() {
 	useEffect(() => {
 		const fetch_barbers = async () => {
 			const res = await axios
-				.get("http://localhost:5002/api/barbers")
+				.get("/api/barbers")
 				.then((res) => {
 					// console.log(res.data);
 					setBarbers(res.data);

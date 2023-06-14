@@ -29,7 +29,7 @@ function MyCalendar() {
 	const [all_appointments, setAllAppointments] = useState([]);
 
 	async function fetch_barber_list() {
-		axios.get("http://localhost:5002/api/barbers").then((res) => {
+		axios.get("/api/barbers").then((res) => {
 			setBarberList(parse_barbers(res.data));
 			setBarber(res.data[0]._id);
 		});
@@ -74,7 +74,7 @@ function MyCalendar() {
 		async function fetch_booked_hours() {
 			axios
 				.post(
-					"http://localhost:5002/api/appointments/appointmentDate",
+					"/api/appointments/appointmentDate",
 					{ date, barber }
 				)
 				.then((res) => {
@@ -89,7 +89,7 @@ function MyCalendar() {
 					console.log(booked_hours);
 					setBookedList(booked_hours);
 					axios
-						.get("http://localhost:5002/api/barbers/" + barber)
+						.get("/api/barbers/" + barber)
 						.then((res) => {
 							// console.log(res.data);
 							const sched = res.data.schedule;
@@ -215,7 +215,7 @@ function MyCalendar() {
 		// console.log(date);
 		const res = axios
 			.post(
-				"http://localhost:5002/api/appointments/appointmentDate",
+				"/api/appointments/appointmentDate",
 				body
 			)
 			.then((res) => {
@@ -266,7 +266,7 @@ function MyCalendar() {
 
 		const post_appointment = async () => {
 			const res = await axios
-				.post("http://localhost:5002/api/appointments", json_data)
+				.post("/api/appointments", json_data)
 				.then((res) => {
 					console.log(res);
 					console.log("Cita agendada con éxito");

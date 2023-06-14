@@ -1,7 +1,6 @@
 {
 	"name": "client",
 	"version": "0.1.0",
-	"proxy": "http://localhost:5002",
 	"private": true,
 	"dependencies": {
 		"@expo-google-fonts/dev": "^0.2.3",

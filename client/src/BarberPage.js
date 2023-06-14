@@ -22,7 +22,7 @@ const BarberPage = () => {
 	useEffect(() => {
 		const fetch_barber = async () => {
 			const res = await fetch(
-				"http://localhost:5002/api/barbers/" + barber_id
+				"/api/barbers/" + barber_id
 			);
 			const res_json = await res.json();
 			setBarberName((await res_json.name) + " " + res_json.last_name);
@@ -40,7 +40,7 @@ const BarberPage = () => {
 			console.log(body);
 			const res = axios
 				.post(
-					"http://localhost:5002/api/appointments/appointmentDate",
+					"/api/appointments/appointmentDate",
 					body
 				)
 				.then((res) => {
@@ -84,7 +84,7 @@ const BarberPage = () => {
 	function handle_delete(event) {
 		event.preventDefault();
 		const res = axios
-			.delete("http://localhost:5002/api/barbers/" + barber_id)
+			.delete("/api/barbers/" + barber_id)
 			.then((res) => {
 				console.log(res);
 				window.location.replace("/admin");
