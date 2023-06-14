@@ -5,6 +5,23 @@ import axios from "axios";
 import "./App.css";
 
 function AdminHours() {
+	const [barber_list, setBarberList] = useState([]);
+	const [hours_list, setHoursList] = useState([]);
+	const [all_barbers, setAllBarbers] = useState([]);
+
+	const [barber, setBarber] = useState("");
+	const [day, setDay] = useState("Lun");
+	const [start, setStart] = useState(9.0);
+	const [end, setEnd] = useState(9.5);
+
+	const start_hours = 9.0;
+	const end_hours = 18.0;
+
+	const [available_hours, setAvailableHours] = useState(
+		get_available_hours(start)
+	);
+	const [end_available_hours, setEndAvailableHours] = useState([]);
+
 	useEffect(() => {
 		const fetch_barbers = async () => {
 			const res = await fetch("http://localhost:5002/api/barbers");
@@ -18,8 +35,15 @@ function AdminHours() {
 		fetch_barbers();
 	}, []);
 
-	const available_hours = get_available_hours(9.0, 18.0);
-	var end_available_hours = get_available_hours(9.5, 18.0);
+	useEffect(() => {
+		console.log("barber changed + " + barber);
+		setHoursList(parse_hours(all_barbers, barber));
+	}, [barber]);
+
+	useEffect(() => {
+		console.log("start changed: " + start);
+		setEndAvailableHours(get_available_hours(parseFloat(start) + 0.5));
+	}, [start]);
 
 	function parse_barbers(barbers) {
 		var result_barbers = [];
@@ -45,35 +69,29 @@ function AdminHours() {
 		return result_hours;
 	}
 
-	const [barber_list, setBarberList] = useState([]);
-	const [hours_list, setHoursList] = useState([]);
-	const [all_barbers, setAllBarbers] = useState([]);
-
-	const [barber, setBarber] = useState("");
-	const [day, setDay] = useState("");
-	const [start, setStart] = useState(9.0);
-	const [end, setEnd] = useState(9.5);
-
-	const start_hours = 9.0;
-	const end_hours = 18.0;
-
-	function get_available_hours(start, finish) {
+	function get_available_hours(s, f = 18.0, print = false) {
 		var hours = [];
 		var hour = "";
-		for (var i = start; i <= finish; i += 0.5) {
+		if (print) {
+			console.log(s + " to " + f);
+		}
+		for (var i = s; i <= f; i += 0.5) {
 			if (i % 1 === 0) {
 				hour = i + ":00";
 			} else {
 				hour = i - 0.5 + ":30";
+			}
+			if (print) {
+				console.log(i + " : " + hour);
 			}
 			hours.push({ value: i, hour: hour });
 		}
 		return hours;
 	}
 
-	function get_hours(start, finish) {
+	function get_hours(s, f) {
 		var hours = [];
-		for (let i = start; i <= finish; i += 0.5) {
+		for (let i = s; i <= f; i += 0.5) {
 			hours.push(i);
 		}
 		return hours;
@@ -81,8 +99,6 @@ function AdminHours() {
 
 	function handleBarberChange(event) {
 		setBarber(event.target.value);
-		setHoursList(parse_hours(all_barbers, event.target.value));
-		console.log(hours_list);
 	}
 
 	function handleDayChange(event) {
@@ -91,10 +107,6 @@ function AdminHours() {
 
 	function handleStartChange(event) {
 		setStart(event.target.value);
-		end_available_hours = get_available_hours(
-			event.target.value + 0.5,
-			end_hours
-		);
 	}
 
 	function handleEndChange(event) {
@@ -104,36 +116,30 @@ function AdminHours() {
 	function handleSubmit(event) {
 		event.preventDefault();
 		var final_hours = [];
-		if (start < end) {
-			final_hours = get_hours(start, end);
-			// console.log(final_hours);
-			console.log(hours_list);
-			hours_list[day] = final_hours;
-			const body = {
-				lunes: hours_list.Lun,
-				martes: hours_list.Mar,
-				miercoles: hours_list.Mier,
-				jueves: hours_list.Juev,
-				viernes: hours_list.Vier,
-			};
+		final_hours = get_hours(parseFloat(start), parseFloat(end));
+		// console.log(final_hours);
+		console.log(hours_list);
+		hours_list[day] = final_hours;
+		const body = {
+			jueves: hours_list.Juev,
+			lunes: hours_list.Lun,
+			martes: hours_list.Mar,
+			miercoles: hours_list.Mier,
+			viernes: hours_list.Vier,
+		};
 
-			const post_schedule = async () => {
-				const res = await axios
-					.patch("http://localhost:5002/api/barbers/" + barber, body)
-					.then((res) => {
-						console.log(res);
-					})
-					.catch((err) => {
-						console.log(err);
-					});
-			};
+		const post_schedule = async () => {
+			const res = await axios
+				.patch("http://localhost:5002/api/barbers/" + barber, body)
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		};
 
-			post_schedule();
-		} else {
-			console.log(
-				"Error: La hora de inicio debe ser menor a la hora de fin"
-			);
-		}
+		post_schedule();
 	}
 
 	return (

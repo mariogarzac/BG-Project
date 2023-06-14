@@ -7,29 +7,145 @@ import axios from "axios";
 import { json } from "react-router-dom";
 
 function MyCalendar() {
+	const myDate = new Date();
+	const [date, setDate] = useState(
+		new Date(myDate.getFullYear(), myDate.getMonth(), myDate.getDate())
+	);
+
+	const [barber, setBarber] = useState("");
+	const [hora, setHora] = useState("10.0");
+
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+
+	const [week_day, setWeekDay] = useState(get_weekday(date));
+
+	const [barber_list, setBarberList] = useState([]);
+	const [booked_list, setBookedList] = useState([]);
+
+	const [hora_list, setHoraList] = useState([{}]);
+	//   const [all_hours, setAllHours] = useState([]);
+
+	const [all_appointments, setAllAppointments] = useState([]);
+
+	async function fetch_barber_list() {
+		axios.get("http://localhost:5002/api/barbers").then((res) => {
+			setBarberList(parse_barbers(res.data));
+			setBarber(res.data[0]._id);
+		});
+	}
+
+	function get_weekday(date) {
+		switch (date.getDay()) {
+			case 0:
+				return "Domingo";
+			case 1:
+				return "Lun";
+			case 2:
+				return "Mar";
+			case 3:
+				return "Mier";
+			case 4:
+				return "Juev";
+			case 5:
+				return "Vier";
+			case 6:
+				return "Sab";
+			default:
+				return "Lun";
+		}
+	}
+
+	function parse_hours(hr) {
+		var hours = [];
+		var hour = "";
+		for (var i = 0; i < hr.length; i++) {
+			if (hr[i] % 1 === 0) {
+				hour = hr[i] + ":00";
+			} else {
+				hour = hr[i] - 0.5 + ":30";
+			}
+			hours.push({ value: hr[i], hour: hour });
+		}
+		return hours;
+	}
+
 	useEffect(() => {
-		const fetch_barbers = async () => {
-			const res = await fetch("http://localhost:5002/api/barbers");
-			const res_json = await res.json();
-			// console.log(res_json);
-			setBarberList(parse_barbers(res_json));
-			setBarber(res_json[0]._id);
-		};
+		async function fetch_booked_hours() {
+			axios
+				.post(
+					"http://localhost:5002/api/appointments/appointmentDate",
+					{ date, barber }
+				)
+				.then((res) => {
+					// console.log("Booked hours: ");
+					console.log(res.data);
+					var booked_hours = [];
 
-		const fetch_booked_hours = async () => {
-			const res = await fetch("http://localhost:5002/api/appointments");
-			const res_json = await res.json();
-			console.log(res_json);
-			setAllAppointments(res_json);
-		};
+					for (var i = 0; i < res.data.length; i++) {
+						booked_hours.push(res.data[i].hour);
+					}
+					console.log("Booked hours: ");
+					console.log(booked_hours);
+					setBookedList(booked_hours);
+					axios
+						.get("http://localhost:5002/api/barbers/" + barber)
+						.then((res) => {
+							// console.log(res.data);
+							const sched = res.data.schedule;
+							// console.log(sched);
+							// setHoraList(sched[week_day]);
+							console.log("Schedule today: ");
+							console.log(sched[week_day]);
 
-		fetch_barbers();
+							console.log("Booked today: ");
+							console.log(booked_hours);
+
+							var available_hours = [];
+							for (var i = 0; i < sched[week_day].length; i++) {
+								if (
+									!booked_hours.includes(sched[week_day][i])
+								) {
+									available_hours.push(sched[week_day][i]);
+								}
+							}
+
+							console.log(available_hours);
+							setHoraList(parse_hours(available_hours));
+							console.log("Available hours: ");
+							console.log(parse_hours(available_hours));
+						});
+					// console.log(barber_list);
+				});
+		}
+
+		// console.log("Barber or date changed.");
+		// console.log("Barber: " + barber);
+		// console.log("Date: " + date);
+
 		fetch_booked_hours();
-		setDate(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
-		setBookedList(get_booked_hours(barber, date, all_appointments));
-		request_appointment_by_date_barber();
+	}, [barber, date]);
+
+	useEffect(() => {
+		fetch_barber_list();
 	}, []);
 
+	// Gets list of hours that are available for X barber on a day
+	function get_available_hours(sched, booked_hours) {
+		// Return a list of available hours with values & hours
+		var available_hours = [];
+		for (var i = 0; i < sched.length; i++) {
+			// if (booked_hours.indexOf(all_hours[i].value) === -1) {
+			// 	available_hours.push(all_hours[i]);
+			// }
+			if (!booked_hours.includes(sched[i].value)) {
+				available_hours.push(sched[i]);
+			}
+		}
+		return available_hours;
+	}
+
+	// Get list of barbers [{id: id, name: name}]
 	function parse_barbers(barbers) {
 		var result_barbers = [];
 		var id = 0;
@@ -43,6 +159,7 @@ function MyCalendar() {
 		return result_barbers;
 	}
 
+	// Gets list of hours that are already booked in a day for X barber
 	function get_booked_hours(barber, day, appointments) {
 		// console.log("Getting booked hours for barber " + barber + " on day " + day + ".")
 		var booked_hours = [];
@@ -67,42 +184,13 @@ function MyCalendar() {
 				booked_hours.push(appointments[i].hour);
 			}
 		}
-		console.log(booked_hours);
+		// console.log(booked_hours);
 		return booked_hours;
 	}
 
-	function get_available_hours(all_hours, booked_hours) {
-		// Return a list of available hours with values & hours
-		var available_hours = [];
-		for (var i = 0; i < all_hours.length; i++) {
-			if (booked_hours.indexOf(all_hours[i].value) === -1) {
-				available_hours.push(all_hours[i]);
-			}
-		}
-		return available_hours;
-	}
-
-	const myDate = new Date();
-	const [date, setDate] = useState(
-		new Date(myDate.getFullYear(), myDate.getMonth(), myDate.getDate())
-	);
-
-	const [barber, setBarber] = useState("");
-	const [hora, setHora] = useState("10.0");
-
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
-
-	const [week_day, setWeekDay] = useState("monday");
-
-	const [barber_list, setBarberList] = useState([]);
-	const [booked_list, setBookedList] = useState([]);
-	//   const [all_hours, setAllHours] = useState([]);
-
-	const [all_appointments, setAllAppointments] = useState([]);
-
 	//   var booked_list = [10.0, 11.0, 12.0, 13.0]
 
+	// Returns list of hours from start to finish with 0.5 increments
 	function get_hours(start, finish) {
 		var hours = [];
 		var hour = "";
@@ -117,13 +205,14 @@ function MyCalendar() {
 		return hours;
 	}
 
+	// Request appointment by date and barber
 	function request_appointment_by_date_barber() {
 		const body = {
 			date: date,
 			barber: barber,
 		};
-		console.log(barber);
-		console.log(date);
+		// console.log(barber);
+		// console.log(date);
 		const res = axios
 			.post(
 				"http://localhost:5002/api/appointments/appointmentDate",
@@ -148,47 +237,16 @@ function MyCalendar() {
 			});
 	}
 
+	// All hours in a work day
 	var all_hours = get_hours(9.0, 18.0);
-
-	var hora_list = get_available_hours(all_hours, booked_list);
 
 	const handleDateChange = (date) => {
 		setDate(date);
-		console.log(date);
-		var day = date.getDay();
-		// Get day of the week
-		switch (day) {
-			case 0:
-				setWeekDay("Lun");
-				break;
-			case 1:
-				setWeekDay("Mar");
-				break;
-			case 2:
-				setWeekDay("Mier");
-				break;
-			case 3:
-				setWeekDay("Juev");
-				break;
-			case 4:
-				setWeekDay("Vier");
-				break;
-			case 5:
-				setWeekDay("Sab");
-				break;
-			case 6:
-				setWeekDay("Dom");
-				break;
-			default:
-				setWeekDay("Lun");
-				break;
-		}
-		request_appointment_by_date_barber();
 	};
 
 	const handleBarberChange = (event) => {
 		setBarber(event.target.value);
-		request_appointment_by_date_barber();
+		// request_appointment_by_date_barber();
 		// setBookedList(get_booked_hours(barber, date, all_appointments));
 	};
 
@@ -251,14 +309,18 @@ function MyCalendar() {
 				<label>Selecciona barbero</label>
 				<select value={barber} onChange={handleBarberChange}>
 					{barber_list.map((barber) => (
-						<option value={barber.id}>{barber.name}</option>
+						<option value={barber.id} defaultValue={this}>
+							{barber.name}
+						</option>
 					))}
 				</select>
 
 				<label>Selecciona la hora</label>
 				<select value={hora} onChange={handleHoraChange}>
 					{hora_list.map((hora) => (
-						<option value={hora.value}>{hora.hour}</option>
+						<option value={hora.value} defaultValue={this}>
+							{hora.hour}
+						</option>
 					))}
 				</select>
 
